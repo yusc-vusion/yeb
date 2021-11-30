@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_drawer"
+    android:layout_width="240dp"
+    android:layout_height="match_parent"
+    android:layout_gravity="start"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/drawer_user"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="로그인이 필요합니다."
+            android:textColor="@color/black"
+            android:textStyle="bold"/>
+
+        <ImageButton
+            android:id="@+id/btn_drawer_close"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/drawer_close"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="vertical">
+
+        <!--layout_margin : 객체외부간격-->
+        <!--padding : 객체내부간격-->
+
+        <!--회원정보수정-->
+        <Button
+            android:id="@+id/btn_drawer_userModify"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:text="회원정보수정"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:backgroundTint="@color/white"
+            android:stateListAnimator="@null"/>
+
+
+        <!--얼굴분석하기-->
+        <Button
+            android:id="@+id/btn_drawer_faceRecog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:text="얼굴분석하기"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:backgroundTint="@color/white"
+            android:stateListAnimator="@null"/>
+
+        <!--나의 얼굴분석 기록-->
+        <Button
+            android:id="@+id/btn_drawer_myfaceRecord"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:text="나의 얼굴분석 기록"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:backgroundTint="@color/white"
+            android:stateListAnimator="@null"/>
+
+        <!--분석결과 평가하기-->
+        <Button
+            android:id="@+id/btn_drawer_faceResultEsti"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:text="분석결과 평가하기"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:backgroundTint="@color/white"
+            android:stateListAnimator="@null"/>
+
+        <!--결과 아이돌 리스트-->
+        <Button
+            android:id="@+id/btn_drawer_idolList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:text="결과 아이돌 리스트"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:backgroundTint="@color/white"
+            android:stateListAnimator="@null"/>
+
+    </LinearLayout>
+
+</LinearLayout>

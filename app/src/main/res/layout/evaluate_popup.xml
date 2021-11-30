@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_drawer"
+    android:layout_width="300dp"
+    android:layout_height="400dp"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:background="@color/white">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="분석결과에 대한 당신의 점수는?"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:id="@+id/text1"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@color/black"/>
+    <LinearLayout
+        android:layout_margin="10dp"
+        android:layout_width="270dp"
+        android:layout_height="140dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/user_popup"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:background="@drawable/blank_image" />
+
+        <ImageView
+            android:id="@+id/idol_popup"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:background="@drawable/blank_image" />
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_margin="10dp"
+        android:layout_width="270dp"
+        android:layout_height="25dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:text="아이돌과의 유사도 : "
+            android:textColor="@color/black"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:id="@+id/popup_result"
+            android:textColor="@color/black"/>
+    </LinearLayout>
+
+    <RatingBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
+        android:numStars="5"
+        android:rating="3"
+        android:stepSize="1"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="49dp"
+        android:layout_marginTop="40dp"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/okay" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/cancle" />
+    </LinearLayout>
+
+
+</LinearLayout>
