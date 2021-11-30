@@ -58,7 +58,7 @@ public class Evaluate extends AppCompatActivity {
         btn_faceRecog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), DetectorActivity_temp.class);
+                Intent intent = new Intent(getApplicationContext(), RecogActivity.class);
                 startActivity(intent);
             }
         });
@@ -66,6 +66,14 @@ public class Evaluate extends AppCompatActivity {
         //나의얼굴분석기록버튼
 
         //결과아이돌리스트버튼
+        Button btn_idolList = (Button)findViewById(R.id.btn_drawer_idolList);
+        btn_idolList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), com.yusesc.myapplication.IdolListActivity.class);
+                startActivity(intent);
+            }
+        });
 
         drawerLayout.setDrawerListener(listener);
         drawerView.setOnTouchListener(new View.OnTouchListener() {

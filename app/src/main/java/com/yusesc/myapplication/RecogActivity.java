@@ -1,5 +1,6 @@
 package com.yusesc.myapplication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -12,8 +13,10 @@ import android.graphics.RectF;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +28,7 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 
 import androidx.core.app.ActivityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 
 import com.yusesc.myapplication.customview.OverlayView;
@@ -41,9 +45,11 @@ import java.util.List;
 
 public class RecogActivity extends AppCompatActivity {
 
+    //메뉴관련 변수
+    private DrawerLayout drawerLayout;
+    private View drawerView;
 
-
-    private TextView det;
+    //private TextView det;
 
     public static final float MINIMUM_CONFIDENCE_TF_OD_API = 0.5f;
 
@@ -52,18 +58,85 @@ public class RecogActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recog);
 
-        det = findViewById(R.id.detect_result);
+        //메뉴관련 시작
+        drawerLayout =(DrawerLayout) findViewById(R.id.layout_faceRecog);
+        drawerView =(View)findViewById(R.id.layout_drawer);
 
-        cameraButton = findViewById(R.id.cameraButton);
+        //menu open버튼
+        ImageButton btn_menuOpen= (ImageButton) findViewById(R.id.btn_drawerback_open);
+        btn_menuOpen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawerLayout.openDrawer(drawerView);
+            }
+        });
+
+        //menu close버튼
+        ImageButton btn_menuClose = (ImageButton)findViewById(R.id.btn_drawer_close);
+        btn_menuClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawerLayout.closeDrawers();
+            }
+        });
+
+        drawerLayout.setDrawerListener(listener);
+        drawerView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return true;
+            }
+        });
+
+        //회원정보수정버튼
+        Button btn_userModi = (Button)findViewById(R.id.btn_drawer_userModify);
+        btn_userModi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), UserModi.class);
+                startActivity(intent);
+            }
+        });
+
+        //얼굴분석하기버튼
+
+        //나의얼굴분석기록버튼
+
+        //분석결과평가하기버튼
+        Button btn_evaluate = (Button)findViewById(R.id.btn_drawer_faceResultEsti);
+        btn_evaluate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Evaluate.class);
+                startActivity(intent);
+            }
+        });
+
+        //결과아이돌리스트버튼
+        Button btn_idolList = (Button)findViewById(R.id.btn_drawer_idolList);
+        btn_idolList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), com.yusesc.myapplication.IdolListActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+        //메뉴관련 끝
+
+        //det = findViewById(R.id.detect_result);
+
+        //cameraButton = findViewById(R.id.cameraButton);
         detectButton = findViewById(R.id.detectButton);
         imageView = findViewById(R.id.imageView);
 
-        cameraButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
-            }
-        });
+//        cameraButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
+//            }
+//        });
 
         detectButton.setOnClickListener(v -> {
             //코드 작성
@@ -75,6 +148,28 @@ public class RecogActivity extends AppCompatActivity {
             //startActivityForResult(intent, 0);
         });
     }
+
+    DrawerLayout.DrawerListener listener=new DrawerLayout.DrawerListener() {
+        @Override
+        public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
+
+        }
+
+        @Override
+        public void onDrawerOpened(@NonNull View drawerView) {
+
+        }
+
+        @Override
+        public void onDrawerClosed(@NonNull View drawerView) {
+
+        }
+
+        @Override
+        public void onDrawerStateChanged(int newState) {
+
+        }
+    };
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         //이미지업로드
@@ -99,7 +194,8 @@ public class RecogActivity extends AppCompatActivity {
                                 idolname = tmp.getTitle();
                             }
                         }
-                        det.setText(idolname);
+                        //det.setText(idolname);
+                        //결과화면 전환코드넣기
                     }
 
                 } catch (IOException e) {
@@ -136,7 +232,7 @@ public class RecogActivity extends AppCompatActivity {
     private Bitmap sourceBitmap;
     private Bitmap cropBitmap;
 
-    private Button cameraButton, detectButton;
+    private ImageButton detectButton;
     private ImageView imageView;
 
     private void initBox() {

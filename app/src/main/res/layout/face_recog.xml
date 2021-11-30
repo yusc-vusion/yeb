@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".DetectorActivity_temp">
+    tools:context="com.yusesc.myapplication.RecogActivity">
 
     <LinearLayout
         android:layout_width="50dp"
