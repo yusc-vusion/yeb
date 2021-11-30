@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -15,6 +16,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -70,7 +73,23 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // 로그인 성공
+                            FirebaseUser User = FirebaseAuth.getInstance().getCurrentUser();
+                            mDatabaseRef.child("UserAccount").child(User.getUid()).child("nickname").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                    if (!task.isSuccessful()) {
+                                        Log.e("firebase", "Error getting data", task.getException());
+                                    }
+                                    else {
+                                        CurrentUser cUser = (CurrentUser) getApplication();
+                                        cUser.setUser(new UserAccount(User.getUid(), email, password, task.getResult().getValue().toString()));
+                                    }
+                                }
+                            });
+
                             Intent intent = new Intent(LoginActivity.this, RecogActivity.class);
+                            // 결과 전송시 intent로 변수 전달
+                            // intent.putExtra("result", "Winter");
                             startActivity(intent);
                             finish();
                         } else{
