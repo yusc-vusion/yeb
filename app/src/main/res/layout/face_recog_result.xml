@@ -7,21 +7,77 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".DetectorActivity_temp">
+    tools:context=".ResultActivity">
+
+
 
     <LinearLayout
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:padding="10dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:padding="5dp"
         android:orientation="vertical">
 
         <ImageButton
             android:id="@+id/btn_drawerback_open"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginBottom="40dp"
+            android:layout_marginBottom="10dp"
             android:background="@drawable/drawerback_menu"/>
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/face_recog_logo"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"/>
+
+        <ImageView
+            android:id="@+id/faceRecogResult"
+            android:layout_width="170dp"
+            android:layout_height="170dp"
+            android:background="@drawable/sampleresult"
+            android:layout_gravity="center"
+            android:layout_margin="20dp"/>
+
+        <TextView
+            android:id="@+id/ResultExplain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="당신과 가장 닮은 아이돌은\n입니다!\n90.2% 유사합니다."/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            android:layout_margin="15dp"
+            android:padding="10dp">
+
+            <ImageButton
+                android:id="@+id/share_to_sns"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/sharetosns"
+                android:gravity="center" />
+
+            <ImageButton
+                android:id="@+id/SearchAgain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/retry"
+                android:gravity="center" />
+
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/CheckIdolInfo"
+            android:layout_width="305dp"
+            android:layout_height="52dp"
+            android:layout_gravity="center"
+            android:background="@drawable/checkidolinfo" />
     </LinearLayout>
 
     <include layout="@layout/drawer"/>

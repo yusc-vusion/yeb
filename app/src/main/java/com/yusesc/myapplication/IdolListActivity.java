@@ -10,6 +10,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,15 +22,23 @@ public class IdolListActivity extends AppCompatActivity {
     //메뉴관련 변수
     private DrawerLayout drawerLayout;
     private View drawerView;
+    private TextView drawerNickname;
+    private String nickname;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.idol_list);
 
+        Intent i = getIntent();
+        nickname = i.getStringExtra("nickname");
+
         //메뉴관련 시작
         drawerLayout =(DrawerLayout) findViewById(R.id.layout_idolList);
         drawerView =(View)findViewById(R.id.layout_drawer);
+
+        drawerNickname = findViewById(R.id.drawer_nickname);
+        drawerNickname.setText(nickname+"님 환영합니다.");
 
         //menu open버튼
         ImageButton btn_menuOpen= (ImageButton) findViewById(R.id.btn_drawerback_open);
@@ -63,6 +72,7 @@ public class IdolListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), UserModi.class);
+                intent.putExtra("nickname",nickname);
                 startActivity(intent);
             }
         });
@@ -73,12 +83,22 @@ public class IdolListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), RecogActivity.class);
+                intent.putExtra("nickname",nickname);
                 startActivity(intent);
             }
         });
 
 
         //나의얼굴분석기록버튼
+        Button btn_searchRecord = (Button)findViewById(R.id.btn_drawer_myfaceRecord);
+        btn_searchRecord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), SearchRecordActivity.class);
+                intent.putExtra("nickname",nickname);
+                startActivity(intent);
+            }
+        });
 
         //분석결과평가하기버튼
         Button btn_evaluate = (Button)findViewById(R.id.btn_drawer_faceResultEsti);
@@ -86,6 +106,7 @@ public class IdolListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), Evaluate.class);
+                intent.putExtra("nickname",nickname);
                 startActivity(intent);
             }
         });

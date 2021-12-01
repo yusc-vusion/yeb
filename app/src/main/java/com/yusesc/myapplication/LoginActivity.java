@@ -29,6 +29,7 @@ public class LoginActivity extends AppCompatActivity {
     private ImageButton signUpBtn, loginBtn;
     private Button findpwBtn;
     private EditText login_id, login_password;
+    private String nickname;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,16 +83,25 @@ public class LoginActivity extends AppCompatActivity {
                                     }
                                     else {
                                         CurrentUser cUser = (CurrentUser) getApplication();
-                                        cUser.setUser(new UserAccount(User.getUid(), email, password, task.getResult().getValue().toString()));
+                                        //Toast.makeText(LoginActivity.this, new Ineteger(cUser.getUser().getNickname().toString().length()).to, Toast.LENGTH_SHORT).show();
+                                        UserAccount currentUser = new UserAccount(User.getUid(), email, password, task.getResult().getValue().toString());
+                                        cUser.setUser(currentUser);
+                                        nickname = task.getResult().getValue().toString();
+                                        if(cUser.getUser().getNickname().toString().length()<1){
+                                            cUser.getUser().setNickname(cUser.getUser().getEmailID());
+                                            mDatabaseRef.child("UserAccount").child(User.getUid()).setValue(new UserAccount(User.getUid(), email, password, email));
+                                            nickname = email;
+                                        }
+                                        Intent intent = new Intent(LoginActivity.this, RecogActivity.class);
+                                        intent.putExtra("nickname", nickname);
+                                        startActivity(intent);
+                                        finish();
                                     }
                                 }
                             });
 
-                            Intent intent = new Intent(LoginActivity.this, RecogActivity.class);
+
                             // 결과 전송시 intent로 변수 전달
-                            // intent.putExtra("result", "Winter");
-                            startActivity(intent);
-                            finish();
                         } else{
                             Toast.makeText(LoginActivity.this, "로그인 실패", Toast.LENGTH_SHORT).show();
                         }

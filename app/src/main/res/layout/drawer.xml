@@ -22,12 +22,13 @@
             android:background="@drawable/drawer_user"/>
 
         <TextView
+            android:id="@+id/drawer_nickname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="로그인이 필요합니다."
             android:textColor="@color/black"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <ImageButton
             android:id="@+id/btn_drawer_close"

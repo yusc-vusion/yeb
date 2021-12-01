@@ -3,17 +3,18 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/layout_evaluate"
+    android:id="@+id/layout_searchRecord"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".MainActivity">
+    tools:context=".DetectorActivity_temp"><!--연결 클래스 바꿀것, 메니페스트추가-->
 
     <LinearLayout
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:padding="10dp"
         android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="120dp"
             android:layout_height="50dp"
@@ -28,209 +29,253 @@
                 android:background="@drawable/drawerback_menu" />
 
             <ImageButton
-                android:id="@+id/redirect"
+                android:id="@+id/redirect_log"
                 android:layout_width="70dp"
                 android:layout_height="50dp"
                 android:layout_marginBottom="3dp"
                 android:background="@drawable/redirect"/>
         </LinearLayout>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text= "분석결과 평가하기"
-            android:id="@+id/text1"
+            android:layout_margin="15dp"
+            android:text="나의 얼굴 분석 기록"
+            android:textSize="25dp"
             android:textStyle="bold"
-            android:layout_margin="10dp"
-            android:textSize="30sp"
             android:textColor="@color/black"/>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="3dp"
-            android:background="@color/black"/>
-
+            android:layout_marginBottom="10dp"
+            android:background="#000000"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="10dp">
+            android:layout_margin="10dp"
+            android:orientation="horizontal">
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/image_user1"
                 android:layout_width="67dp"
                 android:layout_height="67dp"
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
-                android:background="@drawable/blank_image" />
+                android:background="@drawable/blank_image"/>
 
             <ImageView
                 android:id="@+id/image_idol1"
                 android:layout_width="67dp"
                 android:layout_height="67dp"
                 android:layout_weight="1"
-                android:background="@drawable/blank_image" />
+                android:background="@drawable/blank_image"/>
+
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="20"
-                android:gravity="center"
-                android:layout_gravity="center"
-                android:id="@+id/idolname1"/>
-            <TextView
+                android:id="@+id/idolname1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="10"
-                android:gravity="center"
+                android:text=""
+                android:textSize="17dp"
+                android:textColor="@color/black"
                 android:layout_gravity="center"
-                android:id="@+id/confidence1"/>
+                android:gravity="center"/>
+
+            <TextView
+                android:id="@+id/rating1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="10"
+                android:textSize="17dp"
+                android:textColor="@color/black"
+                android:text=""
+                android:layout_gravity="center"
+                android:gravity="center"/>
+
         </LinearLayout>
-
-
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="10dp">
+            android:layout_margin="10dp"
+            android:orientation="horizontal">
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/image_user2"
                 android:layout_width="67dp"
                 android:layout_height="67dp"
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
-                android:background="@drawable/blank_image" />
+                android:background="@drawable/blank_image"/>
 
             <ImageView
                 android:id="@+id/image_idol2"
                 android:layout_width="67dp"
                 android:layout_height="67dp"
                 android:layout_weight="1"
-                android:background="@drawable/blank_image" />
+                android:background="@drawable/blank_image"/>
+
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="20"
-                android:gravity="center"
-                android:layout_gravity="center"
-                android:id="@+id/idolname2"/>
-            <TextView
+                android:id="@+id/idolname2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="10"
-                android:gravity="center"
+                android:text=""
+                android:textSize="17dp"
+                android:textColor="@color/black"
                 android:layout_gravity="center"
-                android:id="@+id/confidence2"/>
+                android:gravity="center"/>
+
+            <TextView
+                android:id="@+id/rating2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="10"
+                android:textSize="17dp"
+                android:textColor="@color/black"
+                android:text=""
+                android:layout_gravity="center"
+                android:gravity="center"/>
+
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="10dp">
+            android:layout_margin="10dp"
+            android:orientation="horizontal">
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/image_user3"
                 android:layout_width="67dp"
                 android:layout_height="67dp"
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
-                android:background="@drawable/blank_image" />
+                android:background="@drawable/blank_image"/>
 
             <ImageView
                 android:id="@+id/image_idol3"
                 android:layout_width="67dp"
                 android:layout_height="67dp"
                 android:layout_weight="1"
-                android:background="@drawable/blank_image" />
+                android:background="@drawable/blank_image"/>
+
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="20"
-                android:gravity="center"
-                android:layout_gravity="center"
-                android:id="@+id/idolname3"/>
-            <TextView
+                android:id="@+id/idolname3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="10"
-                android:gravity="center"
+                android:text=""
+                android:textSize="17dp"
+                android:textColor="@color/black"
                 android:layout_gravity="center"
-                android:id="@+id/confidence3"/>
+                android:gravity="center"/>
+
+            <TextView
+                android:id="@+id/rating3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="10"
+                android:textSize="17dp"
+                android:textColor="@color/black"
+                android:text=""
+                android:layout_gravity="center"
+                android:gravity="center"/>
+
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="10dp">
+            android:layout_margin="10dp"
+            android:orientation="horizontal">
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/image_user4"
                 android:layout_width="67dp"
                 android:layout_height="67dp"
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
-                android:background="@drawable/blank_image" />
+                android:background="@drawable/blank_image"/>
 
             <ImageView
                 android:id="@+id/image_idol4"
                 android:layout_width="67dp"
                 android:layout_height="67dp"
                 android:layout_weight="1"
-                android:background="@drawable/blank_image" />
+                android:background="@drawable/blank_image"/>
+
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="20"
-                android:gravity="center"
-                android:layout_gravity="center"
-                android:id="@+id/idolname4"/>
-            <TextView
+                android:id="@+id/idolname4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="10"
-                android:gravity="center"
+                android:text=""
+                android:textSize="17dp"
+                android:textColor="@color/black"
                 android:layout_gravity="center"
-                android:id="@+id/confidence4"/>
+                android:gravity="center"/>
+
+            <TextView
+                android:id="@+id/rating4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="10"
+                android:textSize="17dp"
+                android:textColor="@color/black"
+                android:text=""
+                android:layout_gravity="center"
+                android:gravity="center"/>
+
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="10dp">
+            android:layout_margin="10dp"
+            android:orientation="horizontal">
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/image_user5"
                 android:layout_width="67dp"
                 android:layout_height="67dp"
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
-                android:background="@drawable/blank_image" />
+                android:background="@drawable/blank_image"/>
 
             <ImageView
                 android:id="@+id/image_idol5"
                 android:layout_width="67dp"
                 android:layout_height="67dp"
                 android:layout_weight="1"
-                android:background="@drawable/blank_image" />
+                android:background="@drawable/blank_image"/>
+
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="20"
-                android:gravity="center"
-                android:layout_gravity="center"
-                android:id="@+id/idolname5"/>
-            <TextView
+                android:id="@+id/idolname5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="10"
-                android:gravity="center"
+                android:text=""
+                android:textSize="17dp"
+                android:textColor="@color/black"
                 android:layout_gravity="center"
-                android:id="@+id/confidence5"/>
+                android:gravity="center"/>
+
+            <TextView
+                android:id="@+id/rating5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="10"
+                android:textSize="17dp"
+                android:textColor="@color/black"
+                android:text=""
+                android:layout_gravity="center"
+                android:gravity="center"/>
+
         </LinearLayout>
+
 
 
     </LinearLayout>

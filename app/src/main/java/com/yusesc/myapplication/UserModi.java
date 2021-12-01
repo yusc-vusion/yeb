@@ -1,5 +1,6 @@
 package com.yusesc.myapplication;
 
+import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -25,7 +26,7 @@ public class UserModi extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
     private View drawerView;
-    private TextView tv_email;
+    private TextView tv_email, drawerNickname;
     private EditText et_password, et_pwchk, et_nickname;
     private ImageButton userModiBtn, deleteBtn;
     private String password;
@@ -37,8 +38,14 @@ public class UserModi extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_modi);
 
+        Intent i = getIntent();
+        nickname = i.getStringExtra("nickname");
+        drawerNickname = findViewById(R.id.drawer_nickname);
+
         drawerLayout =(DrawerLayout) findViewById(R.id.layout_userModi);
         drawerView =(View)findViewById(R.id.layout_drawer);
+
+        drawerNickname.setText(nickname+"님 환영합니다.");
 
         tv_email = findViewById(R.id.email_text);
         et_password = findViewById(R.id.text_userModi_pw);
@@ -131,11 +138,21 @@ public class UserModi extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), RecogActivity.class);
+                intent.putExtra("nickname", nickname);
                 startActivity(intent);
             }
         });
 
         //나의얼굴분석기록버튼
+        Button btn_searchRecord = (Button)findViewById(R.id.btn_drawer_myfaceRecord);
+        btn_searchRecord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), SearchRecordActivity.class);
+                intent.putExtra("nickname", nickname);
+                startActivity(intent);
+            }
+        });
 
         //분석결과평가하기버튼
         Button btn_evaluate = (Button)findViewById(R.id.btn_drawer_faceResultEsti);
@@ -143,6 +160,7 @@ public class UserModi extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), com.yusesc.myapplication.Evaluate.class);
+                intent.putExtra("nickname", nickname);
                 startActivity(intent);
             }
         });
@@ -153,6 +171,7 @@ public class UserModi extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), com.yusesc.myapplication.IdolListActivity.class);
+                intent.putExtra("nickname", nickname);
                 startActivity(intent);
             }
         });

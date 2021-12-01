@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -31,6 +32,16 @@ import androidx.core.app.ActivityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.yusesc.myapplication.customview.OverlayView;
 import com.yusesc.myapplication.env.ImageUtils;
 import com.yusesc.myapplication.env.Logger;
@@ -39,7 +50,11 @@ import com.yusesc.myapplication.tflite.Classifier;
 import com.yusesc.myapplication.tflite.YoloV4Classifier;
 import com.yusesc.myapplication.tracking.MultiBoxTracker;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -48,6 +63,10 @@ public class RecogActivity extends AppCompatActivity {
     //메뉴관련 변수
     private DrawerLayout drawerLayout;
     private View drawerView;
+
+
+    private String nickname;
+    private String url = "";
 
     //private TextView det;
 
@@ -58,10 +77,16 @@ public class RecogActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recog);
 
+        Intent i = getIntent();
+        nickname = i.getStringExtra("nickname");
+
         //메뉴관련 시작
         drawerLayout =(DrawerLayout) findViewById(R.id.layout_faceRecog);
         drawerView =(View)findViewById(R.id.layout_drawer);
 
+        CurrentUser cUser = (CurrentUser) getApplication();
+        TextView drawerNickname = findViewById(R.id.drawer_nickname);
+        drawerNickname.setText(nickname+"님 환영합니다.");
         //menu open버튼
         ImageButton btn_menuOpen= (ImageButton) findViewById(R.id.btn_drawerback_open);
         btn_menuOpen.setOnClickListener(new View.OnClickListener() {
@@ -94,6 +119,7 @@ public class RecogActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), UserModi.class);
+                intent.putExtra("nickname", nickname);
                 startActivity(intent);
             }
         });
@@ -101,6 +127,15 @@ public class RecogActivity extends AppCompatActivity {
         //얼굴분석하기버튼
 
         //나의얼굴분석기록버튼
+        Button btn_searchRecord = (Button)findViewById(R.id.btn_drawer_myfaceRecord);
+        btn_searchRecord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), SearchRecordActivity.class);
+                intent.putExtra("nickname", nickname);
+                startActivity(intent);
+            }
+        });
 
         //분석결과평가하기버튼
         Button btn_evaluate = (Button)findViewById(R.id.btn_drawer_faceResultEsti);
@@ -108,6 +143,7 @@ public class RecogActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), Evaluate.class);
+                intent.putExtra("nickname", nickname);
                 startActivity(intent);
             }
         });
@@ -118,6 +154,7 @@ public class RecogActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), com.yusesc.myapplication.IdolListActivity.class);
+                intent.putExtra("nickname", nickname);
                 startActivity(intent);
             }
         });
@@ -141,6 +178,7 @@ public class RecogActivity extends AppCompatActivity {
         detectButton.setOnClickListener(v -> {
             //코드 작성
             Intent intent = new Intent();
+            intent.putExtra("nickname", nickname);
             intent.setType("image/*");
             intent.setAction(Intent.ACTION_GET_CONTENT);
             //startActivity(intent);
@@ -195,6 +233,41 @@ public class RecogActivity extends AppCompatActivity {
                             }
                         }
                         //det.setText(idolname);
+
+                        StorageReference sRef = FirebaseStorage.getInstance().getReference();
+                        long now = System.currentTimeMillis();
+                        Date date = new Date(now);
+                        SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd-hh-mm");
+                        String getTime = sdf.format(date);
+                        CurrentUser cUser = (CurrentUser) getApplication();
+
+                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                        byte[] bytes = baos.toByteArray();
+                        ByteArrayInputStream bs = new ByteArrayInputStream(bytes);
+                        Bitmap bitmap = sourceBitmap;
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                        byte[] data_bit = baos.toByteArray();
+
+                        UploadTask uploadTask = sRef.child(cUser.getUser().getEmailID()+getTime).putStream(bs);
+                        uploadTask.addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception exception) {
+                            }
+                        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
+                                //url = sRef.child(cUser.getUser().getEmailID()+getTime).getDownloadUrl().toString();
+                                url = taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();
+                            }
+                        });
+                        //
+                        Intent intent = new Intent (RecogActivity.this, ResultActivity.class);
+                        intent.putExtra("Idol", idolname);
+                        intent.putExtra("Confidence", max_of_confidence);
+                        intent.putExtra("url",FirebaseStorage.getInstance().getReference().child(cUser.getUser().getNickname()+getTime).getDownloadUrl().toString());
+                        intent.putExtra("nickname", nickname);
+                        startActivity(intent);
                         //결과화면 전환코드넣기
                     }
 

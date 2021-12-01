@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +15,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.HashSet;
+import java.util.Random;
 
 public class DisplayData extends AppCompatActivity {
 
@@ -49,8 +53,8 @@ public class DisplayData extends AppCompatActivity {
         ref.child("whoami").child("IdolData").child(result).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                IdolData idol = dataSnapshot.getValue(IdolData.class);
 
+                IdolData idol = dataSnapshot.getValue(IdolData.class);
                 tv_realname.setText(idol.getRealname());
                 tv_artname.setText(idol.getArtname());
                 tv_bloodtype.setText(idol.getBloodtype());
@@ -67,16 +71,5 @@ public class DisplayData extends AppCompatActivity {
                 //Log.e("MainActivity", String.valueOf(databaseError.toException())); // 에러문 출력
             }
         });
-
-//        ref.child("IdolData").child(result).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<DataSnapshot> task) {
-//                for (DataSnapshot messageData : task.getResult().getChildren()) {
-//                    Toast.makeText(DisplayData.this, "1" + messageData.getValue().toString(), Toast.LENGTH_SHORT).show();
-//                    // child 내에 있는 데이터만큼 반복합니다.
-//
-//                }
-//            }
-//        });
     }
 }
